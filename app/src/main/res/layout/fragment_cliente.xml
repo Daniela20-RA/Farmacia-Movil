@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Cliente.ClienteFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtcliente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/app_for"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/txtnombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtnombre"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editTextnombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:hint="@string/ingresar_nombres"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/txtapellido1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtapellido1"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editTextapellido1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:hint="@string/ingresar_apellidos"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/txtapellido2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/ingresar_apellidos"
+            android:text="@string/txtapellido2"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editapellido2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:hint="@string/ingresar_apellidos"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/txttelefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txttelefono"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edittelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:hint="@string/ingresar_telefono"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/txtdireccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtDireccion"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editdireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ingresar_direccion"
+            android:minHeight="48dp"
+            android:inputType="text" />
+
+
+
+        <Button
+            android:id="@+id/iniciarbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#2979FF"
+            android:text="@string/btnGuardar" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,67 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home_button"
+        android:title="Inicio" />
+
+    <!-- Submenú Operaciones -->
+    <item
+        android:title="Operaciones">
+        <menu>
+            <item
+                android:id="@+id/nav_productos"
+                android:icon="@drawable/box"
+                android:title="Productos" />
+            <item
+                android:id="@+id/nav_ventas"
+                android:icon="@drawable/product_selling"
+                android:title="Ventas" />
+            <item
+                android:id="@+id/nav_compras"
+                android:icon="@drawable/cart"
+                android:title="Compras" />
+        </menu>
+    </item>
+
+    <!-- Submenú Catálogos -->
+    <item
+        android:title="Catálogos">
+        <menu>
+            <item
+                android:id="@+id/nav_clientes"
+                android:icon="@drawable/outline_account_circle_24"
+                android:title="Clientes" />
+            <item
+                android:id="@+id/nav_proveedores"
+                android:icon="@drawable/proveedor"
+                android:title="Proveedores" />
+            <item
+                android:id="@+id/nav_categoria"
+                android:icon="@drawable/categorias"
+                android:title="Categoría" />
+        </menu>
+    </item>
+
+    <!-- Ítems finales fuera de submenús -->
+    <item
+        android:id="@+id/nav_Examenes"
+        android:icon="@drawable/examen_medico"
+        android:title="Exámenes Clínicos" />
+
+    <item
+        android:id="@+id/nav_resul"
+        android:icon="@drawable/archivo"
+        android:title="Resultado" />
+
+    <item
+        android:id="@+id/nav_reportes"
+        android:icon="@drawable/informe"
+        android:title="Reportes" />
+
+    <item
+        android:id="@+id/nav_salir"
+        android:icon="@drawable/salirbtn"
+        android:title="Salir" />
+
+</menu>

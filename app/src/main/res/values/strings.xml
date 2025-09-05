@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">menu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Farmacia Angeluz</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_inicio">Inicio</string>
+    <string name="menu_Operaciones">Operaciones</string>
+    <string name="menu_Producto">Productos</string>
+    <string name="menu_venta">Venta</string>
+    <string name="menu_compra">Compra</string>
+    <string name="menu_catalogo">Catalogo</string>
+
+
+    <string name="app_far">Farmacia</string>
+    <string name="txtBienvenido">Bienvenido</string>
+    <string name="txtfar">Farmacia Angeluz</string>
+    <string name="txtUsuario">Usuario</string>
+    <string name="txtcontraseña">contraseña</string>
+    <string name="editusuario">usuario</string>
+    <string name="editcontraseña">contraseña</string>
+    <string name="btnIniciar">Iniciar</string>
+    <string name="imgIlusr">Ilustracion</string>
+
+
+    <string name="app_for">Agregar Cliente</string>
+    <string name="txtnombre">Nombre</string>
+    <string name="txtapellido1">Apellido Paterno</string>
+    <string name="txtapellido2">Apellido Materno</string>
+    <string name="txttelefono">Telefono</string>"
+    <string name="txtDireccion">Dirección</string>
+    <string name="editnombre">Nombre</string>"
+    <string name="editapellido1">Apellido Paterno</string>
+    <string name="editapellido2">Apellido Materno</string>
+    <string name="edittelefono">Telefono</string>
+    d<string name="editDireccion">Dirección</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="nombre_del_cliente">nombre del cliente</string>
+    <string name="ingresar_nombres">Ingresar nombres</string>
+    <string name="ingresar_apellidos">Ingresar apellidos</string>
+    <string name="ingresar_direccion">Ingresar direcciòn</string>
+    <string name="ingresar_telefono">Ingresar telefono</string>
+
+</resources>
