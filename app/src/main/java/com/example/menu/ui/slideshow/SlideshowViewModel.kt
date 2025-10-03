@@ -1,4 +1,4 @@
-package com.example.menu.ui.slideshow
+package com.example.menu.ui.Proveedor
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
