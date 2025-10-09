@@ -21,16 +21,11 @@ class ClienteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val ClienteViewModel =
-            ViewModelProvider(this).get(ClienteViewModel::class.java)
+
 
         _binding = FragmentClienteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        //val textView: TextView = binding.textCliente
-        ClienteViewModel.text.observe(viewLifecycleOwner) {
-           // textView.text = it
-        }
         return root
     }
 

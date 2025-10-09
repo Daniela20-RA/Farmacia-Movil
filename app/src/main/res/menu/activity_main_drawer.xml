@@ -44,6 +44,7 @@
     </item>
 
     <!-- Ítems finales fuera de submenús -->
+
     <item
         android:id="@+id/nav_Examenes"
         android:icon="@drawable/examen_medico"

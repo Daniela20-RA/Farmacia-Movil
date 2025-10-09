@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:gravity="center_horizontal"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/imgProducto"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_medicament" />
+
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="6dp"/>
+
+        <TextView
+            android:id="@+id/tvPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio: $0.00"
+            android:textSize="14sp"
+            android:gravity="center"/>
+
+        <!-- Detalles ocultos inicialmente -->
+        <LinearLayout
+            android:id="@+id/layoutDetalles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:id="@+id/tvCantidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cantidad: 0"
+                android:textSize="13sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvFechaVencimiento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vence: --/--/----"
+                android:textSize="13sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categoría: ---"
+                android:textSize="13sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvUnidadMedida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unidad: ---"
+                android:textSize="13sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvPresentacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Presentación: ---"
+                android:textSize="13sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnVerDetalles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/ver_detalles"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

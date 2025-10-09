@@ -1,11 +1,14 @@
 <resources>
-    <string name="app_name">menu</string>
+    <string name="app_name">Angeluz</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Farmacia Angeluz</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string name="op_mis_productos">Mis productos</string>
+    <string name="op_mis_pedidos">Mis Pedidos</string>
 
     <string name="menu_inicio">Inicio</string>
     <string name="menu_Operaciones">Operaciones</string>
@@ -27,21 +30,67 @@
 
 
     <string name="app_for">Agregar Cliente</string>
-    <string name="txtnombre">Nombre</string>
+    <string name="txtnombre">Nombres</string>
     <string name="txtapellido1">Apellido Paterno</string>
     <string name="txtapellido2">Apellido Materno</string>
     <string name="txttelefono">Telefono</string>"
     <string name="txtDireccion">Dirección</string>
-    <string name="editnombre">Nombre</string>"
+    <string name="editnombre">Text</string>"
     <string name="editapellido1">Apellido Paterno</string>
     <string name="editapellido2">Apellido Materno</string>
-    <string name="edittelefono">Telefono</string>
-    d<string name="editDireccion">Dirección</string>
-    <string name="btnGuardar">Guardar</string>
-    <string name="nombre_del_cliente">nombre del cliente</string>
-    <string name="ingresar_nombres">Ingresar nombres</string>
-    <string name="ingresar_apellidos">Ingresar apellidos</string>
-    <string name="ingresar_direccion">Ingresar direcciòn</string>
-    <string name="ingresar_telefono">Ingresar telefono</string>
+    <string name="edittelefono">Teléfono</string>
 
+    <string name="editDireccion">Dirección</string>
+    <string name="btnGuardar">Guardar</string>
+    <string name="Escribir_Nombre">Escribir nombres </string>
+    <string name="Escribir_PrimerApellido">Escribir apellido1 </string>
+    <string name="Escribir_SegundoApellido">Escribir apellido2</string>
+    <string name="ingresar_direccion">Escribir dirección </string>
+    <string name="ingresar_telefono">Escribir teléfono </string>
+
+
+    <!-- PROVEEDORES -->
+    <string name="app_proveedores">Agregar Proveedores</string>
+    <string name="txtnombreProveedores">Nombres</string>
+    <string name="txtprimerApellidoProveedor">Apellido Paterno</string>
+    <string name="txtsegundoApellidoProveedor">Apellido Materno</string>
+    <string name="txtemail">Correo</string>
+    <string name="txtdireccion">Dirección</string>
+    <string name="txtTelefono">Teléfono</string>
+
+    <string name="editNombre_proveedor">Text</string>
+    <string name="editapellido1_proveedor">Apellido Paterno</string>
+    <string name="editapellido2_proveedor">Apellido Materno</string>
+    <string name="editemail_proveedor">Email</string>
+    <string name="editdireccion_proveedor">Dirección</string>
+    <string name="edittelefono_proveedor">Teléfono</string>
+    <string name="btnGuardar_proveedor">Guardar</string>
+
+    <string name="Escribir_nombre_proveedor">Escribir Nombres</string>"
+    <string name="Escribir_primerapellido_proveedor">Escribir apellido1</string>
+    <string name="Escribir_segundoapellido_proveedor">Escribir apellido2</string>
+    <string name="Escribir_email">Escribir email</string>
+    <string name="Escribir_direccion">Escribir dirección</string>
+    <string name="Escribir_telefono_proveedor">Escribir teléfono</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <!--    PRODUCTOS-->
+    <string name="ver_detalles">Ver detalles</string>
+    <string name="ocultar_detalles">Ocultar detalles</string>
+
+    <string-array name="opciones_filtro">
+        <item>Nombre</item>
+        <item>Categoría</item>
+        <item>Unidad</item>
+        <item>Presentación</item>
+    </string-array>
+
+
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
