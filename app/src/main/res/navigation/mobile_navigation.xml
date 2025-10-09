@@ -36,4 +36,10 @@
         android:label="Productos"
         tools:layout="@layout/activity_fragment_main_productos" />
 
+    <fragment
+        android:id="@+id/nav_ventas"
+        android:name="com.example.menu.ui.Factura.fragmentFactura"
+        android:label="Factura"
+        tools:layout="@layout/fragment_factura" />
+
 </navigation>
