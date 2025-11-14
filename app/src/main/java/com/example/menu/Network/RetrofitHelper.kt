@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
 
-    private const val BASE_URL = "https://localhost:44347/api/"   // CAMBIA ESTO
+    private const val BASE_URL = "https://0khzzbmk-44347.use.devtunnels.ms/"   // CAMBIA ESTO
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

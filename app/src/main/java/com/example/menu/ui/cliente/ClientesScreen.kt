@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.menu.Models.DimCliente
 import com.example.menu.ViewModel.ClienteviewModel
 
 //@OptIn(ExperimentalMaterial3Api::class)
@@ -33,18 +32,5 @@ import com.example.menu.ViewModel.ClienteviewModel
 //    }
 //}
 
-@Composable
-fun ClienteCard(c: DimCliente) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-    ) {
-        Column(Modifier.padding(16.dp)) {
-            Text("ID: ${c.clienteKey}")
-            Text("Nombre: ${c.nombres} ${c.apellido1} ${c.apellido2}")
-            Text("Teléfono: ${c.telefono}")
-        }
-    }
-}
+
 

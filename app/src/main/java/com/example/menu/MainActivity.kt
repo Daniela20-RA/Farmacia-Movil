@@ -16,23 +16,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.example.menu.Models.DimCliente
 import com.example.menu.ViewModel.ClienteviewModel
 import com.example.menu.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     // viewmodel
-    private val clienteViewModel: ClienteviewModel by viewModels()
-    var clientes by mutableStateOf<DimCliente?>(null)
-
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        clienteViewModel.cargarClientes(context = this)
-        clientes = clienteViewModel.clientes
-        Log.d("Response", clientes.toString())
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
