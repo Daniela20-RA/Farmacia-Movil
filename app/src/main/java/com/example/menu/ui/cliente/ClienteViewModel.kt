@@ -1,4 +1,4 @@
-package com.example.menu.ui.Cliente
+package com.example.menu.ui.cliente
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

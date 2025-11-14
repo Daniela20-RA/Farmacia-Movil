@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_clientes"
-        android:name="com.example.menu.ui.Cliente.ClienteFragment"
+        android:name="com.example.menu.ui.cliente.ClienteFragment"
         android:label="@string/menu_Operaciones"
         tools:layout="@layout/fragment_cliente" />
 
