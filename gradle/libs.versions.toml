@@ -1,5 +1,6 @@
 [versions]
 agp = "8.12.3"
+anychartAndroid = "1.1.2"
 kotlin = "2.0.21"
 compose-compiler = "1.5.1" # Example version, check for the latest compatible one
 
@@ -24,6 +25,7 @@ activity-compose = "1.10.1"
 
 [libraries]
 # AndroidX Core and Appcompat
+anychart-android = { module = "com.anychart:anychart-android", version.ref = "anychartAndroid" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # Jetpack Compose BOM

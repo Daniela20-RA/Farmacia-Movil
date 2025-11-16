@@ -98,6 +98,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // anychart by JJ
+    implementation("com.github.AnyChart:AnyChart-Android:1.1.5")
+
 
 
     implementation("androidx.activity:activity-compose:1.9.0")
