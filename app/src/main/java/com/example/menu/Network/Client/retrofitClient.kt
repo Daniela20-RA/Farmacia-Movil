@@ -1,9 +1,12 @@
 package com.example.menu.Network.Client
 
+import com.example.menu.Models.Productoseneromarzo
 import com.example.menu.Models.VentasProductos
 import com.example.menu.Models.VentasResponse
 import com.example.menu.Models.VentasSucursalAnio
 import com.example.menu.Models.VentasSucursalResponse
+import com.example.menu.Models.VentasPorDiaNombreSeptiembre
+import com.example.menu.Models.ProductosClientes
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -33,6 +36,25 @@ interface retrofitClient {
     @GET("/api/ventas/sucursal-producto-anio")
     suspend fun getVentasSucursalAnio(
     ): Response<List<VentasSucursalAnio>>
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/ventas/productos-enero-marzo")
+    suspend fun getproductoseneromarzo(
+    ): Response<List<Productoseneromarzo>>
+
+
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/ventas/dia-nombre-septiembre")
+    suspend fun getventasseptiembre(
+    ): Response<List<VentasPorDiaNombreSeptiembre>>
+
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/ventas/productos-clientes/{sucursal}")
+    suspend fun getVentasProductosClientes(
+        @Path("nombreSucursal") nombreSucursal: String
+    ): Response<List<ProductosClientes>>
 
 
 }

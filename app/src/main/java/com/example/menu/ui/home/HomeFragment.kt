@@ -38,12 +38,18 @@ import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.data.Set
+import com.example.menu.Models.Productoseneromarzo
 import com.example.menu.Models.VentasProductos
 import com.example.menu.Models.VentasResponse
 import com.example.menu.Models.VentasSucursalAnio
 import com.example.menu.Models.VentasSucursalResponse
+import com.example.menu.Models.VentasPorDiaNombreSeptiembre
 import com.example.menu.ViewModel.ClienteviewModel
 import com.example.menu.databinding.FragmentHomeBinding
+import com.example.menu.Models.ProductosClientes
+import kotlin.collections.map
+import com.anychart.chart.common.dataentry.BubbleDataEntry
+
 
 class HomeFragment : Fragment() {
 
@@ -78,6 +84,14 @@ class HomeFragment : Fragment() {
                 var ventasSucursal by mutableStateOf<List<VentasSucursalResponse>>(emptyList())
                 var ventasProductos by mutableStateOf<List<VentasProductos>>(emptyList())
                 var ventasSucursalAnio by mutableStateOf<List<VentasSucursalAnio>>(emptyList())
+                var productoseneromarzo by mutableStateOf<List< Productoseneromarzo>>(emptyList())
+                var ventasseptiembre by mutableStateOf<List<VentasPorDiaNombreSeptiembre>>(emptyList())
+                var productosClientes by mutableStateOf<List<ProductosClientes>>(emptyList())
+
+
+
+
+
 
 
 
@@ -88,6 +102,12 @@ class HomeFragment : Fragment() {
                     cargarVentasSucursal(requireContext(), "Angeluz")
                     cargarProductos(requireContext())
                     cargarSucursalAnio(requireContext())
+                   cargarproductoseneromarzo(requireContext())
+                    cargarventaseptiembre(requireContext())
+                    cargarProductosClientes(requireContext(), "Angeluz")
+
+
+
 
                 }
                 ventas = clienteViewModel.clientes
@@ -95,6 +115,13 @@ class HomeFragment : Fragment() {
                 ventasSucursal = clienteViewModel.ventasSucursal
                 ventasProductos = clienteViewModel.ventasProductos
                 ventasSucursalAnio = clienteViewModel.ventasSucursalAnio
+                productoseneromarzo = clienteViewModel.productoseneromarzo
+                ventasseptiembre = clienteViewModel.ventasseptiembre
+                productosClientes = clienteViewModel.productosClientes
+
+
+
+
 
 
 
@@ -166,6 +193,20 @@ class HomeFragment : Fragment() {
                             Spacer(Modifier.height(20.dp))
 
                             PieChartVentasSucursalAnio(ventasSucursalAnio as List<VentasSucursalAnio>)
+
+                            Spacer(Modifier.height(20.dp))
+
+                            DonutChartProductosEneroMarzo(productoseneromarzo as List<Productoseneromarzo>)
+
+                            Spacer(Modifier.height(20.dp))
+
+                            PieChartVentasSeptiembre(ventasseptiembre as List<VentasPorDiaNombreSeptiembre>)
+
+                            Spacer(Modifier.height(20.dp))
+
+                            BubbleChartProductosPorCliente(productosClientes as List<ProductosClientes>)
+
+
 
 
 
@@ -384,9 +425,127 @@ fun PieChartVentasSucursalAnio(ventas: List<VentasSucursalAnio>) {
     )
 }
 
+@Composable
+fun DonutChartProductosEneroMarzo(ventas: List<Productoseneromarzo>) {
+
+    // Agrupar por producto y sumar cantidad
+    val data = ventas
+        .groupBy { it.Producto ?: "N/A" }
+        .map { (producto, lista) ->
+            ValueDataEntry(producto, lista.sumOf { it.Cantidad ?: 0 })
+        }
+
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(380.dp),
+        factory = { context ->
+            val anyChartView = AnyChartView(context)
+            val pie = AnyChart.pie()
+
+            pie.data(data)
+
+            // Esto hace el gráfico de ARO (Donut)
+            pie.innerRadius("50%")
+
+            pie.title("Productos más vendidos (Enero - Marzo)")
+
+            // Labels visibles
+            pie.labels().enabled(true)
+            pie.labels().format("{%x}: {%value}")
+
+            // Animación suave
+            pie.animation(true)
+
+            anyChartView.setChart(pie)
+            anyChartView
+        }
+    )
+}
 
 
+@Composable
+fun PieChartVentasSeptiembre(ventas: List<VentasPorDiaNombreSeptiembre>) {
+
+    // Convertir a datos para AnyChart
+    val data = ventas.map {
+        ValueDataEntry(it.NombreDia ?: "N/A", it.Total ?: 0)
+    }
+
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(380.dp),
+        factory = { context ->
+            val anyChartView = AnyChartView(context)
+            val pie = AnyChart.pie()
+
+            pie.data(data)
+
+            pie.title("Ventas por Día (Septiembre)")
+
+            // Labels visibles
+            pie.labels().enabled(true)
+            pie.labels().format("{%x}: C${'%'}{%value}")
+
+            // Animación
+            pie.animation(true)
+
+            anyChartView.setChart(pie)
+            anyChartView
+        }
+    )
+}
 
 
+@Composable
+fun BubbleChartProductosPorCliente(lista: List<ProductosClientes>) {
+
+    // Agrupar por Cliente + Producto
+    val data = lista
+        .groupBy { "${it.Cliente}-${it.Producto}" }
+        .map { (_, grupo) ->
+
+            val cliente = grupo.first().Cliente ?: "N/A"
+            val producto = grupo.first().Producto ?: "N/A"
+            val total = grupo.sumOf { it.Total ?: 0 }
+
+            object : BubbleDataEntry(cliente, total, total) {
+                init {
+                    setValue("producto", producto)
+                }
+            }
+        }
+
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(450.dp),
+        factory = { context ->
+
+            val anyChartView = AnyChartView(context)
+            val bubble = AnyChart.bubble()
+
+            bubble.data(data)
+
+            bubble.title("Relación Cliente - Producto (Bubble Chart)")
+            bubble.xAxis(0).title("Clientes")
+            bubble.yAxis(0).title("Total comprado")
+
+            bubble.tooltip().format(
+                "Cliente: {%x}\n" +
+                        "Producto: {%producto}\n" +
+                        "Total: C$ {%value}"
+            )
+
+            bubble.minBubbleSize(10)
+            bubble.maxBubbleSize(60)
+            bubble.animation(true)
+
+            anyChartView.setChart(bubble)
+            anyChartView
+        }
+    )
+}
 
 

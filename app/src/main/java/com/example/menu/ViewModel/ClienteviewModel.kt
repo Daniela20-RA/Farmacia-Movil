@@ -8,10 +8,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.menu.Models.Productoseneromarzo
 import com.example.menu.Models.VentasProductos
 import com.example.menu.Models.VentasResponse
 import com.example.menu.Models.VentasSucursalAnio
 import com.example.menu.Models.VentasSucursalResponse
+import com.example.menu.Models.VentasPorDiaNombreSeptiembre
+import com.example.menu.Models.ProductosClientes
 import com.example.menu.Network.RetrofitHelper
 import kotlinx.coroutines.launch
 
@@ -93,7 +96,68 @@ class ClienteviewModel : ViewModel() {
             }
         }
     }
+
+
+
+    var productoseneromarzo by mutableStateOf<List<Productoseneromarzo>>(emptyList())
+    fun cargarproductoseneromarzo(context: Context) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitHelper.api.getproductoseneromarzo()
+                if (response.isSuccessful) {
+                    productoseneromarzo = response.body() ?: emptyList()
+                    Log.d("Response", "Producto de mes cargado correctamente: $productoseneromarzo")
+                } else {
+                    Log.d("Response", "Error ProductoMes ${response.raw()}")
+                }
+            } catch (e: Exception) {
+                Log.d("Response", "Error ProductoMes ${e.message}")
+                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+
+
+    var ventasseptiembre by mutableStateOf<List<VentasPorDiaNombreSeptiembre>>(emptyList())
+
+    fun cargarventaseptiembre(context: Context) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitHelper.api.getventasseptiembre()
+                if (response.isSuccessful) {
+                    ventasseptiembre = response.body() ?: emptyList()
+                    Log.d("Response", "venta de mes cargado correctamente: $ventasseptiembre")
+                } else {
+                    Log.d("Response", "Error VentaMes ${response.raw()}")
+                }
+            } catch (e: Exception) {
+                Log.d("Response", "Error VentaMes ${e.message}")
+                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    var productosClientes by mutableStateOf<List<ProductosClientes>>(emptyList())
+
+    fun cargarProductosClientes(context: Context, nombreSucursal: String) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitHelper.api.getVentasProductosClientes(nombreSucursal)
+                if (response.isSuccessful) {
+                    productosClientes = response.body()?.filterNotNull() ?: emptyList()
+                } else {
+                    Log.d("Response", "Error productosClientes ${response.raw()}")
+                }
+            } catch (e: Exception) {
+                Log.d("Response", "Error productosClientes ${e.message}")
+                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 }
+
+
 
 
 
