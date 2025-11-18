@@ -1,11 +1,9 @@
-package com.example.menu.ui.Cliente
+package com.example.menu.ui.cliente
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.menu.databinding.FragmentClienteBinding
 import com.example.menu.clienteViewModel
 import android.widget.Toast
@@ -21,15 +19,25 @@ class ClienteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+<<<<<<< HEAD:app/src/main/java/com/example/menu/ui/Cliente/ClienteFragment.kt
+=======
+
+
+>>>>>>> 3bf93b747f7bb7276f2bb365e2fbadd102817a69:app/src/main/java/com/example/menu/ui/cliente/ClienteFragment.kt
         _binding = FragmentClienteBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(clienteViewModel::class.java)
 
+<<<<<<< HEAD:app/src/main/java/com/example/menu/ui/Cliente/ClienteFragment.kt
         // Observa mensajes de resultado
         viewModel.mensaje.observe(viewLifecycleOwner) {
             if (it != null) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             }
         }
+=======
+        return root
+    }
+>>>>>>> 3bf93b747f7bb7276f2bb365e2fbadd102817a69:app/src/main/java/com/example/menu/ui/cliente/ClienteFragment.kt
 
         binding.iniciarbutton.setOnClickListener {
             val cliente = client(

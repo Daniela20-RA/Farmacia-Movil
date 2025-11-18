@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item-->
+<!--        android:id="@+id/action_settings"-->
+<!--        android:orderInCategory="100"-->
+<!--        android:title="@string/action_settings"-->
+<!--        app:showAsAction="never" />-->
+
+    <!--Mis productos-->
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/op_mis_productos"
+        android:title="@string/op_mis_productos"
+
+        />
+
+    <item
+        android:id="@+id/op_mis_ordenes"
+        android:title="@string/op_mis_pedidos"
+        />
 </menu>
