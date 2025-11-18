@@ -53,7 +53,7 @@ interface retrofitClient {
     @Headers("Content-Type: application/json")
     @GET("/api/ventas/productos-clientes/{sucursal}")
     suspend fun getVentasProductosClientes(
-        @Path("nombreSucursal") nombreSucursal: String
+        @Path("sucursal") sucursal: String
     ): Response<List<ProductosClientes>>
 
 

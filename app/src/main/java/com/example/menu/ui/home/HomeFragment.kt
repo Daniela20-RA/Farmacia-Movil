@@ -204,7 +204,7 @@ class HomeFragment : Fragment() {
 
                             Spacer(Modifier.height(20.dp))
 
-                            BarChartTotalPorCliente(productosClientes as List<ProductosClientes>)
+                            BarChartProductosClientes(productosClientes as List<ProductosClientes>)
 
 
 
@@ -499,40 +499,29 @@ fun PieChartVentasSeptiembre(ventas: List<VentasPorDiaNombreSeptiembre>) {
 
 
 @Composable
-fun BarChartTotalPorCliente(lista: List<ProductosClientes>) {
+fun BarChartProductosClientes(lista: List<ProductosClientes>) {
 
-    // Agrupar por cliente y sumar total
-    val data = lista
-        .groupBy { it.Cliente ?: "N/A" }
-        .map { (cliente, compras) ->
-            ValueDataEntry(cliente, compras.sumOf { it.Total ?: 0 })
+    val data = lista.groupBy { it.Producto }
+        .map { (producto, grupo) ->
+            ValueDataEntry(producto ?: "N/A", grupo.sumOf { it.Total ?: 0 })
         }
 
     AndroidView(
         modifier = Modifier
             .fillMaxWidth()
-            .height(380.dp),
+            .height(400.dp),
         factory = { context ->
 
             val anyChartView = AnyChartView(context)
-            val cartesian = AnyChart.column()
+            val bar = AnyChart.column()
 
-            cartesian.data(data)
+            bar.data(data)
+            bar.title("Total vendido por Producto (Sucursal)")
+            bar.yAxis(0).title("Total C$")
+            bar.xAxis(0).title("Producto")
 
-            cartesian.title("Total Comprado por Cliente")
-            cartesian.yAxis(0).title("Monto C$")
-            cartesian.xAxis(0).title("Cliente")
-
-            // Mostrar valores arriba de las barras
-            val series = cartesian.column(data)
-            series.labels().enabled(true)
-            series.labels().format("C$ {%Value}")
-
-            cartesian.animation(true)
-
-            anyChartView.setChart(cartesian)
+            anyChartView.setChart(bar)
             anyChartView
         }
     )
 }
-

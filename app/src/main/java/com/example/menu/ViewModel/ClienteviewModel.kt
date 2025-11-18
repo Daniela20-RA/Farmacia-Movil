@@ -140,15 +140,18 @@ class ClienteviewModel : ViewModel() {
 
     var productosClientes by mutableStateOf<List<ProductosClientes>>(emptyList())
 
-    fun cargarProductosClientes(context: Context, nombreSucursal: String) {
+    fun cargarProductosClientes(context: Context, sucursal: String) {
         viewModelScope.launch {
             try {
-                val response = RetrofitHelper.api.getVentasProductosClientes(nombreSucursal)
+                val response = RetrofitHelper.api.getVentasProductosClientes(sucursal)
+
                 if (response.isSuccessful) {
                     productosClientes = response.body()?.filterNotNull() ?: emptyList()
+                    Log.d("Response", "ProductosClientes cargado: $productosClientes")
                 } else {
                     Log.d("Response", "Error productosClientes ${response.raw()}")
                 }
+
             } catch (e: Exception) {
                 Log.d("Response", "Error productosClientes ${e.message}")
                 Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
@@ -156,9 +159,3 @@ class ClienteviewModel : ViewModel() {
         }
     }
 }
-
-
-
-
-
-
