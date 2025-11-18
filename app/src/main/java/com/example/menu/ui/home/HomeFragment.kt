@@ -48,7 +48,7 @@ import com.example.menu.ViewModel.ClienteviewModel
 import com.example.menu.databinding.FragmentHomeBinding
 import com.example.menu.Models.ProductosClientes
 import kotlin.collections.map
-import com.anychart.chart.common.dataentry.BubbleDataEntry
+
 
 
 class HomeFragment : Fragment() {
@@ -204,7 +204,7 @@ class HomeFragment : Fragment() {
 
                             Spacer(Modifier.height(20.dp))
 
-                            BubbleChartProductosPorCliente(productosClientes as List<ProductosClientes>)
+                            BarChartTotalPorCliente(productosClientes as List<ProductosClientes>)
 
 
 
@@ -499,53 +499,40 @@ fun PieChartVentasSeptiembre(ventas: List<VentasPorDiaNombreSeptiembre>) {
 
 
 @Composable
-fun BubbleChartProductosPorCliente(lista: List<ProductosClientes>) {
+fun BarChartTotalPorCliente(lista: List<ProductosClientes>) {
 
-    // Agrupar por Cliente + Producto
+    // Agrupar por cliente y sumar total
     val data = lista
-        .groupBy { "${it.Cliente}-${it.Producto}" }
-        .map { (_, grupo) ->
-
-            val cliente = grupo.first().Cliente ?: "N/A"
-            val producto = grupo.first().Producto ?: "N/A"
-            val total = grupo.sumOf { it.Total ?: 0 }
-
-            object : BubbleDataEntry(cliente, total, total) {
-                init {
-                    setValue("producto", producto)
-                }
-            }
+        .groupBy { it.Cliente ?: "N/A" }
+        .map { (cliente, compras) ->
+            ValueDataEntry(cliente, compras.sumOf { it.Total ?: 0 })
         }
 
     AndroidView(
         modifier = Modifier
             .fillMaxWidth()
-            .height(450.dp),
+            .height(380.dp),
         factory = { context ->
 
             val anyChartView = AnyChartView(context)
-            val bubble = AnyChart.bubble()
+            val cartesian = AnyChart.column()
 
-            bubble.data(data)
+            cartesian.data(data)
 
-            bubble.title("Relación Cliente - Producto (Bubble Chart)")
-            bubble.xAxis(0).title("Clientes")
-            bubble.yAxis(0).title("Total comprado")
+            cartesian.title("Total Comprado por Cliente")
+            cartesian.yAxis(0).title("Monto C$")
+            cartesian.xAxis(0).title("Cliente")
 
-            bubble.tooltip().format(
-                "Cliente: {%x}\n" +
-                        "Producto: {%producto}\n" +
-                        "Total: C$ {%value}"
-            )
+            // Mostrar valores arriba de las barras
+            val series = cartesian.column(data)
+            series.labels().enabled(true)
+            series.labels().format("C$ {%Value}")
 
-            bubble.minBubbleSize(10)
-            bubble.maxBubbleSize(60)
-            bubble.animation(true)
+            cartesian.animation(true)
 
-            anyChartView.setChart(bubble)
+            anyChartView.setChart(cartesian)
             anyChartView
         }
     )
 }
-
 
