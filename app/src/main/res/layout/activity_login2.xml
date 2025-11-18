@@ -60,7 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:hint="@string/editusuario"
             android:inputType="text" />
 
         <TextView
@@ -76,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:hint="@string/editcontraseña"
             android:inputType="textPassword" />
 
         <Button

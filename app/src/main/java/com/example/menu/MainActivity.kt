@@ -1,7 +1,9 @@
 package com.example.menu
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -11,10 +13,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import com.example.menu.ViewModel.ClienteviewModel
 import com.example.menu.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
+    // viewmodel
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
@@ -38,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_clientes, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_clientes, R.id.fragment_proveedores, R.id.nav_productos, R.id.nav_ventas
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

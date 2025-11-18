@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Cliente.ClienteFragment">
+    tools:context=".ui.cliente.ClienteFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -25,7 +25,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="@string/app_for"
-            android:textSize="26sp" />
+            android:textSize="26sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/txtnombre"
@@ -40,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:hint="@string/ingresar_nombres"
+            android:hint="@string/Escribir_Nombre"
             android:inputType="text" />
 
         <TextView
@@ -56,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:hint="@string/ingresar_apellidos"
+            android:hint="@string/Escribir_PrimerApellido"
             android:inputType="text" />
 
         <TextView
@@ -64,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="@string/ingresar_apellidos"
+            android:hint="@string/Escribir_PrimerApellido"
             android:text="@string/txtapellido2"
             android:textSize="16sp" />
 
@@ -73,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:hint="@string/ingresar_apellidos"
+            android:hint="@string/Escribir_SegundoApellido"
             android:inputType="text" />
 
         <TextView

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/fragment_proveedores"
+    android:layout_height="match_parent"
+    tools:context=".ui.Proveedores.ProveedorFragment"
+    android:background="@color/white"
+
+    >
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+
+        >
+
+        <TextView
+            android:id="@+id/txtproveedores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/app_proveedores"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/txtnombreProveedores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtnombreProveedores"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/editNombre_proveedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Escribir_nombre_proveedor"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@android:color/black"
+            />
+
+        <TextView
+            android:id="@+id/txtprimerApellidoProveedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtprimerApellidoProveedor"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/editapellido1_proveedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Escribir_primerapellido_proveedor"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/txtsegundoApellidoProveedor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtsegundoApellidoProveedor"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/editapellido2_proveedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Escribir_segundoapellido_proveedor"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/txtemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtemail"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/editemail_proveedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Escribir_email"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/txtdireccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtdireccion"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/editdireccion_proveedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Escribir_direccion"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/txtTelefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/txtTelefono"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/edittelefono_proveedor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Escribir_telefono_proveedor"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@android:color/black"/>
+
+        <Button
+            android:id="@+id/iniciarbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#2979FF"
+            android:text="@string/btnGuardar_proveedor"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
