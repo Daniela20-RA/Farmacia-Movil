@@ -1,7 +1,7 @@
 package com.example.menu.ui.home
-
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,9 +34,14 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.anychart.data.Set
+import com.example.menu.Models.VentasProductos
 import com.example.menu.Models.VentasResponse
+import com.example.menu.Models.VentasSucursalAnio
+import com.example.menu.Models.VentasSucursalResponse
 import com.example.menu.ViewModel.ClienteviewModel
 import com.example.menu.databinding.FragmentHomeBinding
 
@@ -70,11 +75,40 @@ class HomeFragment : Fragment() {
         composeView.apply {
             setContent {
                 var ventas by mutableStateOf<List<VentasResponse>>(emptyList())
+                var ventasSucursal by mutableStateOf<List<VentasSucursalResponse>>(emptyList())
+                var ventasProductos by mutableStateOf<List<VentasProductos>>(emptyList())
+                var ventasSucursalAnio by mutableStateOf<List<VentasSucursalAnio>>(emptyList())
+
+
+
+
                 val clienteViewModel: ClienteviewModel by viewModels()
                 clienteViewModel.run {
                     cargarClientes(requireContext())
+                    cargarVentasSucursal(requireContext(), "Angeluz")
+                    cargarProductos(requireContext())
+                    cargarSucursalAnio(requireContext())
+
                 }
                 ventas = clienteViewModel.clientes
+                // Observar los cambios en ventasSucursal
+                ventasSucursal = clienteViewModel.ventasSucursal
+                ventasProductos = clienteViewModel.ventasProductos
+                ventasSucursalAnio = clienteViewModel.ventasSucursalAnio
+
+
+
+
+
+
+
+
+
+                Log.d("Ventas", "Ventas: $ventas")
+                Log.d("VentasSucursalFragment", "VentasSucursal: $ventasSucursal")
+
+
+
 
                 val totalVentas = ventas.sumOf { it.Precio?.times(it.Cantidad ?: 0) ?: 0 }
                 val totalProductos = ventas.sumOf { it.Cantidad ?: 0 }
@@ -119,24 +153,27 @@ class HomeFragment : Fragment() {
                             // Gráfico AnyChart
                             // -------------------------
                             Text(
-                                "Ventas por Producto",
+                                "Ventas en la Sucursal Angeluz",
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold
                             )
-                            Spacer(Modifier.height(8.dp))
+                            BarChartClientes(ventasSucursal as List<VentasSucursalResponse>)
 
-                            AnyChartBarChart(ventas)
-                            Spacer(Modifier.height(16.dp))
+                            Spacer(Modifier.height(20.dp))
 
-                            Text(
-                                "Compras por Cliente",
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
+                            ProductosBarHorizontalChart(ventasProductos as List<VentasProductos>)
 
-                            Spacer(Modifier.height(8.dp))
+                            Spacer(Modifier.height(20.dp))
 
-                            AnyChartPieChart(ventas)
+                            PieChartVentasSucursalAnio(ventasSucursalAnio as List<VentasSucursalAnio>)
+
+
+
+
+
+
+
+
                         }
                     }
                 }
@@ -181,13 +218,13 @@ fun AnyChartBarChart(ventas: List<VentasResponse>) {
             .height(300.dp),
         factory = { context ->
             val anyChartView = AnyChartView(context)
-            val cartesian = com.anychart.AnyChart.bar()
+            val cartesian = AnyChart.bar()
 
             val seriesData = data.map { (producto, cantidad) ->
                 ValueDataEntry(producto, cantidad)
             }
 
-            val set = com.anychart.data.Set.instantiate().apply {
+            val set = Set.instantiate().apply {
                 data(seriesData)
             }
 
@@ -215,8 +252,8 @@ fun AnyChartPieChart(ventas: List<VentasResponse>) {
             .fillMaxWidth()
             .height(530.dp),
         factory = { context ->
-            val anyChartView = com.anychart.AnyChartView(context)
-            val pie = com.anychart.AnyChart.pie()
+            val anyChartView = AnyChartView(context)
+            val pie = AnyChart.pie()
 
             pie.data(data)
             pie.title("Compras por Cliente")
@@ -230,5 +267,126 @@ fun AnyChartPieChart(ventas: List<VentasResponse>) {
         }
     )
 }
+
+@Composable
+fun BarChartClientes(ventas: List<VentasSucursalResponse>) {
+
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(350.dp),
+        factory = { context ->
+
+            val anyChartView = AnyChartView(context)
+            val cartesian = AnyChart.column()
+
+            // Construimos los datos para AnyChart
+            val seriesData = ventas.map {
+                ValueDataEntry(it.Cliente ?: "N/A", it.Cantidad ?: 0)
+            }
+
+            // --- CORRECCIÓN AQUÍ ---
+            // Se especifica la clase completa para crear la instancia del Set de datos.
+            val dataSet = Set.instantiate()
+            dataSet.data(seriesData)
+
+            val barData = dataSet.mapAs("{ x: 'x', value: 'value' }")
+
+            val column = cartesian.column(barData)
+
+            // Etiquetas arriba de cada columna
+            column.labels()
+                .enabled(true)
+                .format("{%Value}")
+
+            cartesian.title("Cantidad de Compras por Cliente")
+            cartesian.yAxis(0).title("Cantidad")
+            cartesian.xAxis(0).title("Cliente")
+
+            cartesian.animation(true)
+
+            anyChartView.setChart(cartesian)
+            anyChartView
+        }
+    )
+
+
+}
+
+@Composable
+fun ProductosBarHorizontalChart(ventas: List<VentasProductos>) {
+
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(380.dp),
+        factory = { context ->
+            val anyChartView = com.anychart.AnyChartView(context)
+
+            val chart = com.anychart.AnyChart.bar() // bar horizontal
+
+            // Data
+            val seriesData = ventas.map {
+                ValueDataEntry(it.Producto ?: "", it.Cantidad ?: 0)
+            }
+
+            chart.data(seriesData)
+
+            chart.title("Cantidad Vendida por Producto")
+            chart.yAxis(0).title("Productos")
+            chart.xAxis(0).title("Cantidad")
+
+            // Mostrar valores al final de cada barra
+            val series = chart.bar(seriesData)
+            series.labels().enabled(true)
+            series.labels().format("{%Value}")
+
+            chart.animation(true)
+
+            anyChartView.setChart(chart)
+            anyChartView
+        }
+    )
+}
+
+@Composable
+fun PieChartVentasSucursalAnio(ventas: List<VentasSucursalAnio>) {
+
+    // Agrupar por producto y sumar total
+    val data = ventas
+        .groupBy { it.Producto ?: "N/A" }
+        .map { (producto, lista) ->
+            ValueDataEntry(producto, lista.sumOf { it.Total ?: 0 })
+        }
+
+    AndroidView(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(380.dp),
+        factory = { context ->
+            val anyChartView = AnyChartView(context)
+            val pie = AnyChart.pie()
+
+            pie.data(data)
+
+            pie.title("Total de Ventas por Producto (Todos los Años)")
+
+            // Opcional: labels
+            pie.labels().enabled(true)
+            pie.labels().format("{%x}: C${'%'}{%value}")
+
+            // Animación
+            pie.animation(true)
+
+            anyChartView.setChart(pie)
+            anyChartView
+        }
+    )
+}
+
+
+
+
+
 
 
