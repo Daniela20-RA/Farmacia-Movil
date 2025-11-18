@@ -13,33 +13,13 @@
 
     <fragment
         android:id="@+id/nav_clientes"
-        android:name="com.example.menu.ui.cliente.ClienteFragment"
+        android:name="com.example.menu.ui.Cliente.ClienteFragment"
         android:label="@string/menu_Operaciones"
         tools:layout="@layout/fragment_cliente" />
 
-
-<!--    <fragment-->
-<!--        android:id="@+id/nav_slideshow"-->
-<!--        android:name="com.example.menu.ui.slideshow.SlideshowFragment"-->
-<!--        android:label="@string/menu_catalogo"-->
-<!--        tools:layout="@layout/fragment_slideshow" />-->
-
     <fragment
-        android:id="@+id/nav_proveedores"
-        android:name="com.example.menu.ui.Proveedores.ProveedorFragment"
-        android:label="Proveedores"
-        tools:layout="@layout/activity_proveedor_fragment" />
-
-    <fragment
-        android:id="@+id/nav_productos"
-        android:name="com.example.menu.ui.Productos.fragmentMainProductos"
-        android:label="Productos"
-        tools:layout="@layout/activity_fragment_main_productos" />
-
-    <fragment
-        android:id="@+id/nav_ventas"
-        android:name="com.example.menu.ui.Factura.fragmentFactura"
-        android:label="Factura"
-        tools:layout="@layout/fragment_factura" />
-
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.menu.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_catalogo"
+        tools:layout="@layout/fragment_slideshow" />
 </navigation>

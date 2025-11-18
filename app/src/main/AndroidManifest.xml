@@ -3,40 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-<<<<<<< HEAD
 
-=======
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
->>>>>>> 3bf93b747f7bb7276f2bb365e2fbadd102817a69
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/img"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/img"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Menu">
-<!--        <activity-->
-<!--            android:name=".item_factura"-->
-<!--            android:exported="false" />-->
-        <!-- <activity -->
-        <!-- android:name=".ui.Productos.fragmentMisPedidos" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".ui.Productos.fragmentMisProductos" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".ui.Productos.fragmentMainProductos" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".ui.Proveedores.ProveedorFragment" -->
-        <!-- android:exported="false" /> -->
-        <activity
-            android:name=".SplashScreenActivity"
-            android:exported="false" />
         <activity
             android:name=".activity_login2"
             android:exported="true">
@@ -46,10 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Menu" />
+
     </application>
 
 </manifest>

@@ -24,7 +24,7 @@ class activity_login2 : AppCompatActivity() {
         val btn_login = findViewById<Button>(R.id.iniciarbutton)
         btn_login.setOnClickListener{
             val intent = Intent(
-                this, SplashScreenActivity::class.java
+                this,MainActivity::class.java
             )
             startActivity(intent)
         }
