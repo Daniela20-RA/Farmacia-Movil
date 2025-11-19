@@ -180,7 +180,7 @@ class HomeFragment : Fragment() {
                             // Gráfico AnyChart
                             // -------------------------
                             Text(
-                                "Ventas en la Sucursal Angeluz",
+                                "Reportes",
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold
                             )
@@ -318,41 +318,44 @@ fun BarChartClientes(ventas: List<VentasSucursalResponse>) {
             .height(350.dp),
         factory = { context ->
 
-            val anyChartView = AnyChartView(context)
-            val cartesian = AnyChart.column()
+            val view = AnyChartView(context)
+            val chart = AnyChart.column()
 
-            // Construimos los datos para AnyChart
             val seriesData = ventas.map {
                 ValueDataEntry(it.Cliente ?: "N/A", it.Cantidad ?: 0)
             }
 
-            // --- CORRECCIÓN AQUÍ ---
-            // Se especifica la clase completa para crear la instancia del Set de datos.
             val dataSet = Set.instantiate()
             dataSet.data(seriesData)
 
             val barData = dataSet.mapAs("{ x: 'x', value: 'value' }")
 
-            val column = cartesian.column(barData)
+            val column = chart.column(barData)
 
-            // Etiquetas arriba de cada columna
+            // Mejora visual
+            column.fill("#4CAF50")        // verde elegante
+            column.stroke("#388E3C")
+            column.hovered().fill("#66BB6A")
+            column.hovered().stroke("#2E7D32")
+
             column.labels()
                 .enabled(true)
                 .format("{%Value}")
+                .fontColor("#000")
+                .fontWeight("bold")
 
-            cartesian.title("Cantidad de Compras por Cliente")
-            cartesian.yAxis(0).title("Cantidad")
-            cartesian.xAxis(0).title("Cliente")
+            chart.background().fill("#FFFFFF")
+            chart.animation(true)
+            chart.title("Cantidad de Compras por Cliente en la sucursal Angeluz")
+            chart.yAxis(0).title("Cantidad")
+            chart.xAxis(0).title("Cliente")
 
-            cartesian.animation(true)
-
-            anyChartView.setChart(cartesian)
-            anyChartView
+            view.setChart(chart)
+            view
         }
     )
-
-
 }
+
 
 @Composable
 fun ProductosBarHorizontalChart(ventas: List<VentasProductos>) {
@@ -362,40 +365,46 @@ fun ProductosBarHorizontalChart(ventas: List<VentasProductos>) {
             .fillMaxWidth()
             .height(380.dp),
         factory = { context ->
-            val anyChartView = com.anychart.AnyChartView(context)
 
-            val chart = com.anychart.AnyChart.bar() // bar horizontal
+            val view = AnyChartView(context)
+            val chart = AnyChart.bar()
 
-            // Data
             val seriesData = ventas.map {
                 ValueDataEntry(it.Producto ?: "", it.Cantidad ?: 0)
             }
 
             chart.data(seriesData)
 
+            chart.animation(true)
             chart.title("Cantidad Vendida por Producto")
+
             chart.yAxis(0).title("Productos")
             chart.xAxis(0).title("Cantidad")
 
-            // Mostrar valores al final de cada barra
             val series = chart.bar(seriesData)
-            series.labels().enabled(true)
-            series.labels().format("{%Value}")
 
-            chart.animation(true)
+            series.labels()
+                .enabled(true)
+                .fontColor("#000")
+                .fontWeight("bold")
+                .format("{%Value}")
 
-            anyChartView.setChart(chart)
-            anyChartView
+            // Colores modernos
+            series.color("#1E88E5")
+
+            chart.background().fill("#FFFFFF")
+
+            view.setChart(chart)
+            view
         }
     )
 }
 
+
 @Composable
 fun PieChartVentasSucursalAnio(ventas: List<VentasSucursalAnio>) {
 
-    // Agrupar por producto y sumar total
-    val data = ventas
-        .groupBy { it.Producto ?: "N/A" }
+    val data = ventas.groupBy { it.Producto ?: "N/A" }
         .map { (producto, lista) ->
             ValueDataEntry(producto, lista.sumOf { it.Total ?: 0 })
         }
@@ -405,32 +414,52 @@ fun PieChartVentasSucursalAnio(ventas: List<VentasSucursalAnio>) {
             .fillMaxWidth()
             .height(380.dp),
         factory = { context ->
-            val anyChartView = AnyChartView(context)
+
+            val view = AnyChartView(context)
             val pie = AnyChart.pie()
 
+            // Cargar datos
             pie.data(data)
-
-            pie.title("Total de Ventas por Producto (Todos los Años)")
-
-            // Opcional: labels
-            pie.labels().enabled(true)
-            pie.labels().format("{%x}: C${'%'}{%value}")
-
-            // Animación
             pie.animation(true)
 
-            anyChartView.setChart(pie)
-            anyChartView
+            // ⭐ Fondo claro (sin stroke)
+            pie.background().fill("#FAFAFA")
+
+            // ⭐ Paleta moderna y contrastante
+            pie.palette(arrayOf(
+                "#1976D2", // Azul fuerte
+                "#43A047", // Verde
+                "#FB8C00", // Naranja
+                "#E53935", // Rojo
+                "#8E24AA", // Morado
+                "#00897B", // Verde esmeralda
+                "#6D4C41", // Café
+                "#FDD835"  // Amarillo
+            ))
+
+            // Título
+            pie.title("Total de Ventas por Producto (Todos los Años)")
+
+            // Labels claras
+            pie.labels()
+                .enabled(true)
+                .fontSize(12.0)
+                .fontWeight("bold")
+                .fontColor("#000000")
+                .format("{%x}: C$ {%value}")
+
+            view.setChart(pie)
+            view
         }
     )
 }
 
+
+
 @Composable
 fun DonutChartProductosEneroMarzo(ventas: List<Productoseneromarzo>) {
 
-    // Agrupar por producto y sumar cantidad
-    val data = ventas
-        .groupBy { it.Producto ?: "N/A" }
+    val data = ventas.groupBy { it.Producto ?: "N/A" }
         .map { (producto, lista) ->
             ValueDataEntry(producto, lista.sumOf { it.Cantidad ?: 0 })
         }
@@ -440,34 +469,36 @@ fun DonutChartProductosEneroMarzo(ventas: List<Productoseneromarzo>) {
             .fillMaxWidth()
             .height(380.dp),
         factory = { context ->
-            val anyChartView = AnyChartView(context)
+
+            val view = AnyChartView(context)
             val pie = AnyChart.pie()
 
+            pie.innerRadius("55%")
             pie.data(data)
+            pie.animation(true)
+            pie.background().fill("#FFFFFF")
 
-            // Esto hace el gráfico de ARO (Donut)
-            pie.innerRadius("50%")
+            pie.palette(arrayOf("#8E24AA", "#3949AB", "#039BE5", "#00897B", "#FDD835"))
 
             pie.title("Productos más vendidos (Enero - Marzo)")
 
-            // Labels visibles
-            pie.labels().enabled(true)
-            pie.labels().format("{%x}: {%value}")
+            pie.labels()
+                .enabled(true)
+                .fontWeight("bold")
+                .fontColor("#000")
+                .format("{%x}: {%value}")
 
-            // Animación suave
-            pie.animation(true)
-
-            anyChartView.setChart(pie)
-            anyChartView
+            view.setChart(pie)
+            view
         }
     )
 }
 
 
+
 @Composable
 fun PieChartVentasSeptiembre(ventas: List<VentasPorDiaNombreSeptiembre>) {
 
-    // Convertir a datos para AnyChart
     val data = ventas.map {
         ValueDataEntry(it.NombreDia ?: "N/A", it.Total ?: 0)
     }
@@ -477,33 +508,39 @@ fun PieChartVentasSeptiembre(ventas: List<VentasPorDiaNombreSeptiembre>) {
             .fillMaxWidth()
             .height(380.dp),
         factory = { context ->
-            val anyChartView = AnyChartView(context)
+
+            val view = AnyChartView(context)
             val pie = AnyChart.pie()
 
             pie.data(data)
+            pie.animation(true)
+            pie.background().fill("#FFFFFF")
+
+            pie.palette(arrayOf("#29B6F6", "#66BB6A", "#FF7043", "#AB47BC", "#26A69A"))
 
             pie.title("Ventas por Día (Septiembre)")
 
-            // Labels visibles
-            pie.labels().enabled(true)
-            pie.labels().format("{%x}: C${'%'}{%value}")
+            pie.labels()
+                .enabled(true)
+                .fontWeight("bold")
+                .fontColor("#000")
+                .format("{%x}: C$ {%value}")
 
-            // Animación
-            pie.animation(true)
-
-            anyChartView.setChart(pie)
-            anyChartView
+            view.setChart(pie)
+            view
         }
     )
 }
 
 
+
 @Composable
 fun BarChartProductosClientes(lista: List<ProductosClientes>) {
 
-    val data = lista.groupBy { it.Producto }
+    val data = lista
+        .groupBy { it.Producto ?: "N/A" }
         .map { (producto, grupo) ->
-            ValueDataEntry(producto ?: "N/A", grupo.sumOf { it.Total ?: 0 })
+            ValueDataEntry(producto, grupo.sumOf { it.Total ?: 0 })
         }
 
     AndroidView(
@@ -511,17 +548,57 @@ fun BarChartProductosClientes(lista: List<ProductosClientes>) {
             .fillMaxWidth()
             .height(400.dp),
         factory = { context ->
-
             val anyChartView = AnyChartView(context)
-            val bar = AnyChart.column()
+            val chart = AnyChart.column()
 
-            bar.data(data)
-            bar.title("Total vendido por Producto (Sucursal)")
-            bar.yAxis(0).title("Total C$")
-            bar.xAxis(0).title("Producto")
+            // -----------------------
+            //  CONFIGURACIÓN VISUAL
+            // -----------------------
 
-            anyChartView.setChart(bar)
+            chart.data(data)
+            chart.animation(true)
+
+            // Fondo claro
+            chart.background().fill("#FAFAFA")
+
+            // Paleta moderna (azules, verdes, naranjas)
+            chart.palette(arrayOf(
+                "#42A5F5", // azul
+                "#66BB6A", // verde
+                "#FFA726", // naranja
+                "#AB47BC", // morado
+                "#EF5350", // rojo
+                "#26C6DA"  // cian
+            ))
+
+            // Título
+            chart.title("Total vendido por Producto (Sucursal Angeluz)")
+
+            // Ejes
+            chart.yAxis(0).title("Total C$")
+            chart.xAxis(0).title("Producto")
+
+            // Labels arriba de cada barra
+            val series = chart.column(data)
+            series.labels()
+                .enabled(true)
+                .fontColor("#000000")
+                .fontSize(12.0)
+                .fontWeight("bold")
+                .format("C$ {%Value}")
+
+            // Espaciado visual
+            series.tooltip()
+                .title(false)
+                .format("C$ {%Value}")
+                .background().fill("#FFFFFF")
+
+            // Suavidad en animación
+            chart.animation(true)
+
+            anyChartView.setChart(chart)
             anyChartView
         }
     )
 }
+
