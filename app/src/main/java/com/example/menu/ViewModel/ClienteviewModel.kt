@@ -14,9 +14,11 @@ import com.example.menu.Models.VentasResponse
 import com.example.menu.Models.VentasSucursalAnio
 import com.example.menu.Models.VentasSucursalResponse
 import com.example.menu.Models.VentasPorDiaNombreSeptiembre
+import com.example.menu.Models.Cliente
 import com.example.menu.Models.ProductosClientes
 import com.example.menu.Network.RetrofitHelper
 import kotlinx.coroutines.launch
+import com.example.menu.Network.RetrofitCliente
 
 class ClienteviewModel : ViewModel() {
 
@@ -154,6 +156,29 @@ class ClienteviewModel : ViewModel() {
 
             } catch (e: Exception) {
                 Log.d("Response", "Error productosClientes ${e.message}")
+                Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+
+
+    var cliente by mutableStateOf<List<Cliente>>(emptyList())
+
+    fun cargarclientes(context: Context) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitCliente.api.getclientes()
+
+                if (response.isSuccessful) {
+                    cliente = response.body() ?: emptyList()
+                    Log.d("Response", "Clientes cargados: $cliente")
+                } else {
+                    Log.d("Response", "Error Clientes ${response.raw()}")
+                }
+
+            } catch (e: Exception) {
+                Log.d("Response", "Error Clientes ${e.message}")
                 Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
             }
         }

@@ -1,49 +1,92 @@
-package com.example.menu.ui.Cliente
+package com.example.menu.ui.cliente
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.menu.databinding.FragmentClienteBinding
-import com.example.menu.clienteViewModel
-import android.widget.Toast
-import com.example.menu.client
+import androidx.fragment.app.viewModels
+import com.example.menu.Models.Cliente
+import com.example.menu.ViewModel.ClienteviewModel
 
 class ClienteFragment : Fragment() {
 
-    private var _binding: FragmentClienteBinding? = null
-    private val binding get() = _binding!!
-    private lateinit var viewModel:clienteViewModel
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentClienteBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(clienteViewModel::class.java)
 
-        // Observa mensajes de resultado
-        viewModel.mensaje.observe(viewLifecycleOwner) {
-            if (it != null) {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        val composeView = ComposeView(requireContext())
+
+        composeView.setContent {
+
+            val viewModel: ClienteviewModel by viewModels()
+
+
+            val listaClientes = viewModel.cliente
+
+            // Cargar clientes al entrar
+            LaunchedEffect(Unit) {
+                viewModel.cargarclientes(requireContext())
+            }
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
+
+                items(listaClientes) { cliente ->
+                    ClienteCard(cliente)
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
             }
         }
 
-        binding.iniciarbutton.setOnClickListener {
-            val cliente = client(
-                id = 0,
-                codigo = "",
-                Nombres = binding.editTextnombre.text.toString(),
-                primerApellido = binding.editTextapellido1.text.toString(),
-                segundoApellido = binding.editapellido2.text.toString(),
-                direccion = binding.editdireccion.text.toString(),
-                telefono = binding.edittelefono.text.toString()
-            )
-            viewModel.createCliente(cliente)
-        }
-
-        return binding.root
+        return composeView
     }
 }
+
+
+
+
+@Composable
+fun ClienteCard(cliente: Cliente) {
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .padding(16.dp)
+    ) {
+
+        Text(
+            text = "${cliente.nombres} ${cliente.primerApellido}",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Black
+        )
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        Text("Código: ${cliente.codigo}")
+        Text("Teléfono: ${cliente.telefono}")
+        Text("Dirección: ${cliente.direccion}")
+    }
+}
+
+

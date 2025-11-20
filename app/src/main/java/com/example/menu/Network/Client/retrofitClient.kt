@@ -7,6 +7,7 @@ import com.example.menu.Models.VentasSucursalAnio
 import com.example.menu.Models.VentasSucursalResponse
 import com.example.menu.Models.VentasPorDiaNombreSeptiembre
 import com.example.menu.Models.ProductosClientes
+import com.example.menu.Models.Cliente
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -55,6 +56,10 @@ interface retrofitClient {
     suspend fun getVentasProductosClientes(
         @Path("sucursal") sucursal: String
     ): Response<List<ProductosClientes>>
+
+
+
+
 
 
 }
